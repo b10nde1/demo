@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>M1COMP2K16 | Identification</title>
+
+  <!-- Bootstrap core CSS -->
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="fonts/css/font-awesome.min.css" rel="stylesheet">
+  <link href="css/animate.min.css" rel="stylesheet">
+
+  <!-- Custom styling plus plugins -->
+  <link href="css/custom.css" rel="stylesheet">
+  <link href="css/icheck/flat/green.css" rel="stylesheet">
+
+
+<script src="js/jquery.min.js"></script>
+
+  <!--[if lt IE 9]>
+        <script src="../assets/js/ie8-responsive-file-warning.js"></script>
+        <![endif]-->
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+</head>
+
+<body style="background:#F7F7F7;">
+
+  <div class="">
+    <a class="hiddenanchor" id="toregister"></a>
+    <a class="hiddenanchor" id="tologin"></a>
+
+    <div id="wrapper">
+      <div id="login" class="animate form">
+        <section class="login_content">
+          <form action="#" class="form-horizontal form-label-left" methode="post">
+            <h1><i class="fa fa-unlock-alt"></i> Identification</h1>
+            <div class="form-group has-feedback">
+              <input type="text" class="form-control has-feedback-left" id="identifiant" required="required" placeholder="   Identifiant*" autofocus onBlur="controlVide(this)" onkeyup="controlTaille(this)"/> 
+              <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+            </div>
+            <div class="form-group has-feedback">
+              <input type="password" class="form-control has-feedback-left" id="mots-de-passe" required="required" disabled placeholder="   Mots de passe*" onBlyr="controlVide(this)" onkeyup="controlTaille(this)"/>
+              <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="col-lg-6 col-lg-offset-6 col-md-6 col-md-offset-6 col-sm-6 col-sm-offset-6 col-xs-6 col-xs-offset-6">
+                  <input type="submit" class="btn btn-default submit" value="Connexion" id="submitlogin" onclick="controlVide(this)">
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="separator">
+              <br />
+              <div>
+                <h1><i class="fa fa-bank" style="font-size: 26px;"></i> M1COMP2K16</h1>
+                <p>© IT University Software || 2016</p>
+              </div>
+            </div>
+          </form>
+          <!-- form -->
+        </section>
+        <!-- content -->
+      </div>
+  </div>
+  <div id="custom_notifications" class="custom-notifications">
+    <ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group">
+    <li><a id="ntlink15" class="alert-warning" href="#ntf15"><i class="fa fa-bell animated shake"></i></a></li></ul>
+    <div class="clearfix"></div>
+    <div id="notif-group" class="tabbed_notifications">
+      <div id="ntf15" class="text alert-warning" style="">
+          <h2><i class="fa fa-bell"></i> Attention</h2>
+          <div class="close">
+            <a href="javascript:;" class="notification_close"><i class="fa fa-close"></i></a>
+          </div>
+          <p>Les deux (2) champs sont obligatoires, le champ mots de passe sera activ&eacute; quand si le champ identifiant est correctement rempli,
+            droit maximum de 10 tentatives, Merci
+          </p>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
+
+<script type="text/javascript">
+    $(function() {
+      var cnt = 10; 
+      TabbedNotification = function(options) {
+        var message = "<div id='ntf" + cnt + "' class='text alert-" + options.type + "' style='display:none'><h2><i class='fa fa-bell'></i> " + options.title +
+          "</h2><div class='close'><a href='javascript:;' class='notification_close'><i class='fa fa-close'></i></a></div><p>" + options.text + "</p></div>";
+
+        if (document.getElementById('custom_notifications') == null) {
+          alert('doesnt exists');
+        } else {
+          $('#custom_notifications ul.notifications').append("<li><a id='ntlink" + cnt + "' class='alert-" + options.type + "' href='#ntf" + cnt + "'><i class='fa fa-bell animated shake'></i></a></li>");
+          $('#custom_notifications #notif-group').append(message);
+          cnt++;
+          CustomTabs(options);
+        }
+      }
+
+      CustomTabs = function(options) {
+        $('.tabbed_notifications > div').hide();
+        $('.tabbed_notifications > div:first-of-type').show();
+        $('#custom_notifications').removeClass('dsp_none');
+        $('.notifications a').click(function(e) {
+          e.preventDefault();
+          var $this = $(this),
+            tabbed_notifications = '#' + $this.parents('.notifications').data('tabbed_notifications'),
+            others = $this.closest('li').siblings().children('a'),
+            target = $this.attr('href');
+          others.removeClass('active');
+          $this.addClass('active');
+          $(tabbed_notifications).children('div').hide();
+          $(target).show();
+        });
+      }
+
+      CustomTabs();
+
+      var tabid = idname = '';
+      $(document).on('click', '.notification_close', function(e) {
+        idname = $(this).parent().parent().attr("id");
+        tabid = idname.substr(-2);
+        $('#ntf' + tabid).remove();
+        $('#ntlink' + tabid).parent().remove();
+        $('.notifications a').first().addClass('active');
+        $('#notif-group div').first().css('display', 'block');
+      });
+    })
+  function controlVide(form){
+    var inp = form.id;
+    if(document.getElementById(inp).value==""){
+      new TabbedNotification({title: 'Erreur!',text: 'Le champ '+inp+' est obligatoire.',type: 'error'});
+    }
+    if(inp=="submitlogin"){
+      new TabbedNotification({title: 'Attention', text: 'Les champs avec un * sont obligatoires', type: 'warning'});
+    }
+  }
+  function controlTaille(form){
+    var inp=form.id;
+    if(document.getElementById(inp).value.length>0 && document.getElementById(inp).value.length<2){
+      new TabbedNotification({title: 'Notice', text: 'Le champ '+inp+' contient au moins 5 charact&egrave;s.',type:'info'});
+    }
+    if(inp=="identifiant" && document.getElementById(inp).value.length<5){
+      document.getElementById("mots-de-passe").disabled=true;
+    }
+    if(inp=="identifiant" && document.getElementById(inp).value.length>4){
+      document.getElementById("mots-de-passe").disabled=false;
+    }
+  }
+</script>
+
